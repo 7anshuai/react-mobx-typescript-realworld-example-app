@@ -70,7 +70,7 @@ const limit = (count: any, p: any) => `limit=${count}&offset=${p ? p * count : 0
 const omitSlug = (article: any) => Object.assign({}, article, { slug: undefined })
 
 const Articles = {
-  all: (page: any, lim = 10) =>
+  all: (page: any, lim = 10, predicate: string) =>
     requests.get(`/articles?${limit(lim, page)}`),
   byAuthor: (author: string, page: number, query: any) =>
     requests.get(`/articles?author=${encode(author)}&${limit(5, page)}`),
@@ -80,10 +80,10 @@ const Articles = {
     requests.del(`/articles/${slug}`),
   favorite: (slug: string) =>
     requests.post(`/articles/${slug}/favorite`, {}),
-  favoritedBy: (author: string, page: number) =>
+  favoritedBy: (author: string, page: number, _limit: number) =>
     requests.get(`/articles?favorited=${encode(author)}&${limit(5, page)}`),
-  feed: () =>
-    requests.get('/articles/feed?limit=10&offset=0'),
+  feed: (page: number, limit: number) =>
+    requests.get(`/articles/feed?limit=${limit}&offset=${page}`),
   get: (slug: string) =>
     requests.get(`/articles/${slug}`),
   unfavorite: (slug: string) =>
