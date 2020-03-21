@@ -9,11 +9,11 @@ const ArticlePreview = (props) => {
 
   const handleClickFavorite = ev => {
     ev.preventDefault();
-    const { articlesStore, article } = props;
+    const { articleStore, article } = props;
     if (article.favorited) {
-      articlesStore.unmakeFavorite(article.slug);
+      articleStore.unmakeFavorite(article.slug);
     } else {
-      articlesStore.makeFavorite(article.slug);
+      articleStore.makeFavorite(article.slug);
     }
   };
 
