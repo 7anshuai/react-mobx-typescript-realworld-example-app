@@ -1,4 +1,5 @@
 import articleStore, { ArticleStore } from './articleStore';
+import commentStore, { CommentStore } from './commentStore';
 import commonStore, { CommonStore } from './commonStore';
 import authStore, { AuthStore } from './authStore';
 import userStore, { UserStore } from './userStore';
@@ -6,6 +7,7 @@ import profileStore, { ProfileStore } from './profileStore';
 
 export type TRootStore = {
   articleStore: ArticleStore;
+  commentStore: CommentStore;
   authStore: AuthStore;
   commonStore: CommonStore;
   profileStore: ProfileStore;
@@ -14,6 +16,7 @@ export type TRootStore = {
 
 const rootStore = {
   articleStore,
+  commentStore,
   authStore,
   commonStore,
   profileStore,

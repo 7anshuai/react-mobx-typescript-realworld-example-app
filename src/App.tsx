@@ -8,6 +8,7 @@ import Register from './components/Register';
 import PrivateRoute from './components/PrivateRoute';
 import Settings from './components/Settings';
 import Profile from './components/Profile';
+import Article from './components/Article';
 
 const App: React.FC = () => {
   const { commonStore, userStore } = useStore()
@@ -26,6 +27,7 @@ const App: React.FC = () => {
         <PrivateRoute path="/settings" component={Settings} />
         <Route path="/@:username" component={Profile} />
         <Route path="/@:username/favorites" component={Profile} />
+        <Route path="/article/:slug" component={Article} />
         <Route path="/" component={Home} />
       </Switch>
     </Router>
