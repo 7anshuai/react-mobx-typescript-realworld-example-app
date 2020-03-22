@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useObserver } from 'mobx-react-lite';
+import { useStore } from '../store';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
 
 const ArticlePreview = (props) => {
+  const { articleStore } = useStore();
 
   const handleClickFavorite = ev => {
     ev.preventDefault();
-    const { articleStore, article } = props;
+    const { article } = props;
     if (article.favorited) {
       articleStore.unmakeFavorite(article.slug);
     } else {
