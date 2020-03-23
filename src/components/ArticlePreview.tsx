@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useObserver } from 'mobx-react-lite';
 import { useStore } from '../store';
@@ -6,10 +6,10 @@ import { useStore } from '../store';
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
 
-const ArticlePreview = (props) => {
+const ArticlePreview: React.FC<any> = props => {
   const { articleStore } = useStore();
 
-  const handleClickFavorite = ev => {
+  const handleClickFavorite = (ev: MouseEvent<HTMLButtonElement>) => {
     ev.preventDefault();
     const { article } = props;
     if (article.favorited) {
@@ -52,7 +52,7 @@ const ArticlePreview = (props) => {
           <span>Read more...</span>
           <ul className="tag-list">
             {
-              article.tagList.map(tag => {
+              article.tagList.map((tag: string) => {
                 return (
                   <li className="tag-default tag-pill tag-outline" key={tag}>
                     {tag}

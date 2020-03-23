@@ -3,7 +3,7 @@ import ListPagination from './ListPagination';
 import LoadingSpinner from './LoadingSpinner';
 import React from 'react';
 
-const ArticleList = props => {
+const ArticleList: React.FC<any> = props => {
   if (props.loading && props.articles.length === 0) {
     return (
       <LoadingSpinner />
@@ -21,7 +21,7 @@ const ArticleList = props => {
   return (
     <div>
       {
-        props.articles.map(article => {
+        props.articles.map((article: any) => {
           return (
             <ArticlePreview article={article} key={article.slug} />
           );

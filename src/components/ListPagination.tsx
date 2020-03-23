@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
-const ListPagination = props => {
+type Props = {
+  currentPage: number;
+  totalPagesCount: number;
+  onSetPage: (v: number) => void
+};
+
+const ListPagination: React.FC<Props> = props => {
   if (props.totalPagesCount < 2) {
     return null;
   }
@@ -17,7 +23,7 @@ const ListPagination = props => {
         {
           range.map(v => {
             const isCurrent = v === props.currentPage;
-            const onClick = ev => {
+            const onClick = (ev: MouseEvent<HTMLLIElement>) => {
               ev.preventDefault();
               props.onSetPage(v);
             };
