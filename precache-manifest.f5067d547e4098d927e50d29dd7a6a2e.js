@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "be9915845778389a69ec0b20c2370eb0",
+    "revision": "20fac8945dd7dd44fc91c6dc57c0ac16",
     "url": "/react-mobx-typescript-realworld-example-app/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-mobx-typescript-realworld-example-app/static/js/2.3b2fa8f7.chunk.js.LICENSE"
   },
   {
-    "revision": "f1632c1b6fd554b63691",
-    "url": "/react-mobx-typescript-realworld-example-app/static/js/main.5e4a0bc3.chunk.js"
+    "revision": "6512fc796789ccdad306",
+    "url": "/react-mobx-typescript-realworld-example-app/static/js/main.52e3b64b.chunk.js"
   },
   {
     "revision": "1ed8617435d308f8c397",
