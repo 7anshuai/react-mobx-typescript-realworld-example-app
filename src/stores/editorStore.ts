@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import { ResponseError } from 'superagent';
 import articleStore from './articleStore';
 
 export class EditorStore {
@@ -72,7 +73,7 @@ export class EditorStore {
       slug: this.articleSlug,
     };
     return (this.articleSlug ? articleStore.updateArticle(article) : articleStore.createArticle(article))
-      .catch(action((err: any) => {
+      .catch(action((err: ResponseError) => {
         this.errors = err.response && err.response.body && err.response.body.errors; throw err;
       }))
       .finally(action(() => { this.inProgress = false; }));

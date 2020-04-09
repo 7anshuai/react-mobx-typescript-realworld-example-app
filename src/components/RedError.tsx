@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
-const wrapperStyle = {
+const wrapperStyle: CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
 };
 
-const errorStyle  = {
+const errorStyle: CSSProperties  = {
   display: 'inline-block',
   margin: '20px auto',
   borderRadius: '4px',
   padding: '8px 15px',
   color: 'rgb(240, 45, 45)',
-  // fontWeight: 'bold',
+  fontStyle: 'bold',
   backgroundColor: 'rgba(240, 45, 45, 0.1)'
 };
 

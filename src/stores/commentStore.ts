@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import { ResponseError } from 'superagent';
 import agent from '../agent';
 
 export class CommentStore {
@@ -21,7 +22,7 @@ export class CommentStore {
     this.commentErrors = undefined;
     return agent.Comments.forArticle(this.articleSlug)
       .then(action(({ comments }: { comments: any[] }) => { this.comments = comments; }))
-      .catch(action((err: any) => {
+      .catch(action((err: ResponseError) => {
         this.commentErrors = err.response && err.response.body && err.response.body.errors;
         throw err;
       }))
@@ -40,7 +41,7 @@ export class CommentStore {
     const idx = this.comments.findIndex(c => c.id === id);
     if (idx > -1) this.comments.splice(idx, 1);
     return agent.Comments.delete(this.articleSlug, id)
-      .catch(action((err: any) => { this.loadComments(); throw err }));
+      .catch(action((err: ResponseError) => { this.loadComments(); throw err }));
   }
 }
 

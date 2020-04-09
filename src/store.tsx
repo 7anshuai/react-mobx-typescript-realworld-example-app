@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocalStore } from 'mobx-react-lite';
-import rootStore, { TRootStore } from './stores'
+import rootStore, { RootStore } from './stores'
 
-const storeContext = React.createContext<TRootStore | null>(null);
+const storeContext = React.createContext<RootStore | null>(null);
 
 export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   const store = useLocalStore(() => rootStore);

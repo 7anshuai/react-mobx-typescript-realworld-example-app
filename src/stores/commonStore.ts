@@ -7,7 +7,7 @@ export class CommonStore {
   @observable token = window.localStorage.getItem('jwt');
   @observable appLoaded = false;
 
-  @observable tags = [];
+  @observable tags: string[] = [];
   @observable isLoadingTags = false;
 
   constructor() {
@@ -26,11 +26,11 @@ export class CommonStore {
   @action loadTags() {
     this.isLoadingTags = true;
     return agent.Tags.getAll()
-      .then(action(({ tags }: { tags: any }) => { this.tags = tags.map((t: string) => t.toLowerCase()); }))
+      .then(action(({ tags }: { tags: string[] }) => { this.tags = tags.map((t: string) => t.toLowerCase()); }))
       .finally(action(() => { this.isLoadingTags = false; }))
   }
 
-  @action setToken(token: any) {
+  @action setToken(token: string | null) {
     this.token = token;
   }
 

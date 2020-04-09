@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
-const style: any  = {
+const style: CSSProperties  = {
   borderRadius: '50%',
   width: '40px',
   height: '40px',

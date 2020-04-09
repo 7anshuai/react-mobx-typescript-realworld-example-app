@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import { ResponseError } from "superagent";
 import agent from '../agent';
 
 const LIMIT = 10;
@@ -78,7 +79,7 @@ export class ArticleStore {
       article.favorited = true;
       article.favoritesCount++;
       return agent.Articles.favorite(slug)
-        .catch(action((err: Error) => {
+        .catch(action((err: ResponseError) => {
           article.favorited = false;
           article.favoritesCount--;
           throw err;
@@ -93,7 +94,7 @@ export class ArticleStore {
       article.favorited = false;
       article.favoritesCount--;
       return agent.Articles.unfavorite(slug)
-        .catch(action((err: Error) => {
+        .catch(action((err: ResponseError) => {
           article.favorited = true;
           article.favoritesCount++;
           throw err;
@@ -121,7 +122,7 @@ export class ArticleStore {
   @action deleteArticle(slug: string) {
     this.articlesRegistry.delete(slug);
     return agent.Articles.del(slug)
-      .catch(action((err: Error) => { this.loadArticles(); throw err; }));
+      .catch(action((err: ResponseError) => { this.loadArticles(); throw err; }));
   }
 }
 

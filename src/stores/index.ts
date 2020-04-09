@@ -6,7 +6,7 @@ import authStore, { AuthStore } from './authStore';
 import userStore, { UserStore } from './userStore';
 import profileStore, { ProfileStore } from './profileStore';
 
-export type TRootStore = {
+export type RootStore = {
   articleStore: ArticleStore;
   commentStore: CommentStore;
   editorStore: EditorStore;
@@ -16,7 +16,7 @@ export type TRootStore = {
   userStore: UserStore;
 }
 
-const rootStore = {
+const rootStore: RootStore = {
   articleStore,
   commentStore,
   editorStore,

@@ -1,5 +1,5 @@
 import superagentPromise from 'superagent-promise';
-import _superagent from 'superagent';
+import _superagent, { ResponseError, Request, Response } from 'superagent';
 import commonStore from './stores/commonStore';
 import authStore from './stores/authStore';
 
@@ -9,16 +9,16 @@ const API_ROOT = 'https://conduit.productionready.io/api';
 
 const encode = encodeURIComponent;
 
-const handleErrors = (err: any) => {
+const handleErrors = (err: ResponseError) => {
   if (err && err.response && err.response.status === 401) {
     authStore.logout();
   }
   return err;
 };
 
-const responseBody = (res: any) => res.body;
+const responseBody = (res: Response) => res.body;
 
-const tokenPlugin = (req: any) => {
+const tokenPlugin = (req: Request) => {
   if (commonStore.token) {
     req.set('authorization', `Token ${commonStore.token}`);
   }

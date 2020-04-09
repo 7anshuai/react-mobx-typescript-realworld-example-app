@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
+import { ResponseError } from 'superagent';
 import agent from '../agent';
-import userStore from './userStore';
+import userStore, { User } from './userStore';
 import commonStore from './commonStore';
 
 export class AuthStore {
@@ -35,9 +36,9 @@ export class AuthStore {
     this.inProgress = true;
     this.errors = undefined;
     return agent.Auth.login(this.values.email, this.values.password)
-      .then(({ user }: { user: any }) => commonStore.setToken(user.token))
+      .then(({ user }: { user: User }) => commonStore.setToken(user.token))
       .then(() => userStore.pullUser())
-      .catch(action((err: any) => {
+      .catch(action((err: ResponseError) => {
         this.errors = err.response && err.response.body && err.response.body.errors;
         throw err;
       }))
@@ -48,9 +49,9 @@ export class AuthStore {
     this.inProgress = true;
     this.errors = undefined;
     return agent.Auth.register(this.values.username, this.values.email, this.values.password)
-      .then(({ user }: { user: any }) => commonStore.setToken(user.token))
+      .then(({ user }: { user: User }) => commonStore.setToken(user.token))
       .then(() => userStore.pullUser())
-      .catch(action((err: any) => {
+      .catch(action((err: ResponseError) => {
         this.errors = err.response && err.response.body && err.response.body.errors;
         throw err;
       }))
@@ -58,7 +59,7 @@ export class AuthStore {
   }
 
   @action logout() {
-    commonStore.setToken(undefined);
+    commonStore.setToken(null);
     userStore.forgetUser();
     return Promise.resolve();
   }
