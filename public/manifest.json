@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Conduit",
+  "name": "Realworld app built with React Hooks + Mobx + TypeScript",
   "icons": [
     {
       "src": "favicon.ico",
