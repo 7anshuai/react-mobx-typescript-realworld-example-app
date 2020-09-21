@@ -5,7 +5,7 @@
   "homepage": "http://7anshuai.github.io/react-mobx-typescript-realworld-example-app/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
+    "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^7.1.2",
     "@types/jest": "^24.0.0",
     "@types/marked": "^0.7.3",
