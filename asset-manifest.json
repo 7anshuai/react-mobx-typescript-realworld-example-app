@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/react-mobx-typescript-realworld-example-app/static/js/main.52e3b64b.chunk.js",
-    "main.js.map": "/react-mobx-typescript-realworld-example-app/static/js/main.52e3b64b.chunk.js.map",
+    "main.js": "/react-mobx-typescript-realworld-example-app/static/js/main.c158698b.chunk.js",
+    "main.js.map": "/react-mobx-typescript-realworld-example-app/static/js/main.c158698b.chunk.js.map",
     "runtime-main.js": "/react-mobx-typescript-realworld-example-app/static/js/runtime-main.6baaf597.js",
     "runtime-main.js.map": "/react-mobx-typescript-realworld-example-app/static/js/runtime-main.6baaf597.js.map",
-    "static/js/2.3b2fa8f7.chunk.js": "/react-mobx-typescript-realworld-example-app/static/js/2.3b2fa8f7.chunk.js",
-    "static/js/2.3b2fa8f7.chunk.js.map": "/react-mobx-typescript-realworld-example-app/static/js/2.3b2fa8f7.chunk.js.map",
+    "static/js/2.882ad11c.chunk.js": "/react-mobx-typescript-realworld-example-app/static/js/2.882ad11c.chunk.js",
+    "static/js/2.882ad11c.chunk.js.map": "/react-mobx-typescript-realworld-example-app/static/js/2.882ad11c.chunk.js.map",
     "index.html": "/react-mobx-typescript-realworld-example-app/index.html",
-    "precache-manifest.f5067d547e4098d927e50d29dd7a6a2e.js": "/react-mobx-typescript-realworld-example-app/precache-manifest.f5067d547e4098d927e50d29dd7a6a2e.js",
+    "precache-manifest.10fd8d01c0bcf95bedd6269707e78cb6.js": "/react-mobx-typescript-realworld-example-app/precache-manifest.10fd8d01c0bcf95bedd6269707e78cb6.js",
     "service-worker.js": "/react-mobx-typescript-realworld-example-app/service-worker.js",
-    "static/js/2.3b2fa8f7.chunk.js.LICENSE": "/react-mobx-typescript-realworld-example-app/static/js/2.3b2fa8f7.chunk.js.LICENSE"
+    "static/js/2.882ad11c.chunk.js.LICENSE": "/react-mobx-typescript-realworld-example-app/static/js/2.882ad11c.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.6baaf597.js",
-    "static/js/2.3b2fa8f7.chunk.js",
-    "static/js/main.52e3b64b.chunk.js"
+    "static/js/2.882ad11c.chunk.js",
+    "static/js/main.c158698b.chunk.js"
   ]
 }
