@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useObserver } from 'mobx-react-lite';
+import { Observer } from 'mobx-react-lite';
 import { useStore } from '../../store';
 
 const CommentInput: React.FC<any> = props => {
@@ -16,7 +16,7 @@ const CommentInput: React.FC<any> = props => {
       .then(() => set(''));
   };
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const { isCreatingComment } = commentStore;
     return (
       <form className="card comment-form" onSubmit={createComment}>
@@ -44,7 +44,7 @@ const CommentInput: React.FC<any> = props => {
         </div>
       </form>
     );
-  });
+  }}</Observer>
 };
 
 export default CommentInput;

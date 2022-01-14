@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useObserver } from 'mobx-react-lite';
+import { Observer } from 'mobx-react-lite';
 import { useStore } from '../../store';
 import Banner from './Banner';
 import MainView from './MainView'
@@ -15,7 +15,7 @@ const Home: React.FC = () => {
     loadTags();
   }, [ commonStore ]);
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const { appName, isLoadingTags, tags, token } = commonStore;
     return (
       <div className="home-page">
@@ -41,7 +41,7 @@ const Home: React.FC = () => {
         </div>
       </div>
     )
-  });
+  }}</Observer>
 }
 
 export default Home;

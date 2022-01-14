@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useObserver } from 'mobx-react-lite';
+import { Observer } from 'mobx-react-lite';
 import { useStore } from '../store';
 import ListErrors from './ListErrors';
 
@@ -18,7 +18,7 @@ const Login: React.FC = (props: any) => {
     return () => authStore.reset();
   }, [ authStore ]);
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const { values, errors, inProgress } = authStore;
     return (
       <div className="auth-page">
@@ -74,7 +74,7 @@ const Login: React.FC = (props: any) => {
         </div>
       </div>
      )
-  });
+  }}</Observer>
 }
 
 export default Login;

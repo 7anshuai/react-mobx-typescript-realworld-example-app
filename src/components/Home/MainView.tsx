@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useObserver } from "mobx-react-lite";
+import { Observer } from "mobx-react-lite";
 import { parse as qsParse } from "query-string";
 import { useStore } from '../../store';
 import ArticleList from "../ArticleList";
@@ -89,7 +89,7 @@ const MainView: React.FC = () => {
   }, [articleStore, getPredicate, tab, tag]);
 
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const { currentUser } = userStore;
     const {
       articles,
@@ -119,7 +119,7 @@ const MainView: React.FC = () => {
         />
       </div>
     );
-  });
+  }}</Observer>
 };
 
 export default MainView;

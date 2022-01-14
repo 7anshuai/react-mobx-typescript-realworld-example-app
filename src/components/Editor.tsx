@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useObserver } from "mobx-react-lite";
+import { Observer } from "mobx-react-lite";
 import { useStore } from "../store";
 import ListErrors from "./ListErrors";
 
@@ -56,7 +56,7 @@ const Editor: React.FC = () => {
     });
   };
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const {
       inProgress,
       errors,
@@ -149,7 +149,7 @@ const Editor: React.FC = () => {
         </div>
       </div>
     );
-  });
+  }}</Observer>;
 };
 
 export default Editor;

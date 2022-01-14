@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, makeObservable } from 'mobx';
 import agent from '../agent';
 
 type Profile = {
@@ -9,18 +9,27 @@ type Profile = {
 }
 
 export class ProfileStore {
+  profile?: Profile;
+  isLoadingProfile = false;
 
-  @observable profile?: Profile;
-  @observable isLoadingProfile = false;
+  constructor() {
+    makeObservable(this, {
+      profile: observable,
+      isLoadingProfile: observable,
+      loadProfile: action,
+      follow: action,
+      unfollow: action
+    });
+  }
 
-  @action loadProfile(username: string) {
+  loadProfile(username: string) {
     this.isLoadingProfile = true;
     agent.Profile.get(username)
       .then(action(({ profile }: { profile: Profile }) => { this.profile = profile; }))
       .finally(action(() => { this.isLoadingProfile = false; }))
   }
 
-  @action follow() {
+  follow() {
     if (this.profile && !this.profile.following) {
       this.profile.following = true;
       agent.Profile.follow(this.profile.username)
@@ -28,7 +37,7 @@ export class ProfileStore {
     }
   }
 
-  @action unfollow() {
+  unfollow() {
     if (this.profile && this.profile.following) {
       this.profile.following = false;
       agent.Profile.unfollow(this.profile.username)

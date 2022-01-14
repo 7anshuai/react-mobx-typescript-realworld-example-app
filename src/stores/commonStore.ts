@@ -1,16 +1,27 @@
-import { observable, action, reaction } from 'mobx';
+import { observable, action, reaction, makeObservable } from 'mobx';
 import agent from '../agent';
 
 export class CommonStore {
 
-  @observable appName = 'Conduit';
-  @observable token = window.localStorage.getItem('jwt');
-  @observable appLoaded = false;
+  appName = 'Conduit';
+  token = window.localStorage.getItem('jwt');
+  appLoaded = false;
 
-  @observable tags: string[] = [];
-  @observable isLoadingTags = false;
+  tags: string[] = [];
+  isLoadingTags = false;
 
   constructor() {
+    makeObservable(this, {
+      appName: observable,
+      token: observable,
+      appLoaded: observable,
+      tags: observable,
+      isLoadingTags: observable,
+      loadTags: action,
+      setToken: action,
+      setAppLoaded: action
+    });
+
     reaction(
       () => this.token,
       token => {
@@ -23,18 +34,18 @@ export class CommonStore {
     );
   }
 
-  @action loadTags() {
+  loadTags() {
     this.isLoadingTags = true;
     return agent.Tags.getAll()
       .then(action(({ tags }: { tags: string[] }) => { this.tags = tags.map((t: string) => t.toLowerCase()); }))
       .finally(action(() => { this.isLoadingTags = false; }))
   }
 
-  @action setToken(token: string | null) {
+  setToken(token: string | null) {
     this.token = token;
   }
 
-  @action setAppLoaded() {
+  setAppLoaded() {
     this.appLoaded = true;
   }
 

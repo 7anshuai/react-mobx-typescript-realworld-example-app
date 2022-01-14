@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useObserver } from 'mobx-react-lite';
+import { Observer } from 'mobx-react-lite';
 import { useStore } from '../store';
 import ListErrors from './ListErrors';
 
@@ -16,7 +16,7 @@ const Register: React.FC = (props: any) => {
       .catch(() => {});
   };
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const { values, errors, inProgress } = authStore;
 
     return (
@@ -83,7 +83,7 @@ const Register: React.FC = (props: any) => {
         </div>
       </div>
     );
-  });
+  }}</Observer>
 };
 
 export default Register;

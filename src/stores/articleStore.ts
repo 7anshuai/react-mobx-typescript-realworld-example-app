@@ -1,25 +1,44 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, makeObservable } from 'mobx';
 import { ResponseError } from "superagent";
 import agent from '../agent';
 
 const LIMIT = 10;
 
 export class ArticleStore {
+  isLoading = false;
+  page = 0;
+  totalPagesCount = 0;
+  articlesRegistry = observable.map();
+  predicate: any = {};
 
-  @observable isLoading = false;
-  @observable page = 0;
-  @observable totalPagesCount = 0;
-  @observable articlesRegistry = observable.map();
-  @observable predicate: any = {};
+  constructor() {
+    makeObservable(this, {
+      isLoading: observable,
+      page: observable,
+      totalPagesCount: observable,
+      articlesRegistry: observable,
+      predicate: observable,
+      articles: computed,
+      setPage: action,
+      setPredicate: action,
+      loadArticles: action,
+      loadArticle: action,
+      makeFavorite: action,
+      unmakeFavorite: action,
+      createArticle: action,
+      updateArticle: action,
+      deleteArticle: action
+    });
+  }
 
-  @computed get articles() {
+  get articles() {
     const ret = []
     const values = this.articlesRegistry.values();
     for (let value of values) {
       ret.push(value);
     }
     return ret;
-  };
+  }
 
   clear() {
     this.articlesRegistry.clear();
@@ -30,11 +49,11 @@ export class ArticleStore {
     return this.articlesRegistry.get(slug);
   }
 
-  @action setPage(page: number) {
+  setPage(page: number) {
     this.page = page;
   }
 
-  @action setPredicate(predicate: any) {
+  setPredicate(predicate: any) {
     if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
     this.clear();
     this.predicate = predicate;
@@ -48,7 +67,7 @@ export class ArticleStore {
     return agent.Articles.all(this.page, LIMIT, this.predicate);
   }
 
-  @action loadArticles() {
+  loadArticles() {
     this.isLoading = true;
     return this.$req()
       .then(action(({ articles, articlesCount }: { articles: any, articlesCount: number }) => {
@@ -59,7 +78,7 @@ export class ArticleStore {
       .finally(action(() => { this.isLoading = false; }));
   }
 
-  @action loadArticle(slug: string, { acceptCached = false } = {}) {
+  loadArticle(slug: string, { acceptCached = false } = {}) {
     if (acceptCached) {
       const article = this.getArticle(slug);
       if (article) return Promise.resolve(article);
@@ -73,7 +92,7 @@ export class ArticleStore {
       .finally(action(() => { this.isLoading = false; }));
   }
 
-  @action makeFavorite(slug: string) {
+  makeFavorite(slug: string) {
     const article = this.getArticle(slug);
     if (article && !article.favorited) {
       article.favorited = true;
@@ -88,7 +107,7 @@ export class ArticleStore {
     return Promise.resolve();
   }
 
-  @action unmakeFavorite(slug: string) {
+  unmakeFavorite(slug: string) {
     const article = this.getArticle(slug);
     if (article && article.favorited) {
       article.favorited = false;
@@ -103,7 +122,7 @@ export class ArticleStore {
     return Promise.resolve();
   }
 
-  @action createArticle(article: any) {
+  createArticle(article: any) {
     return agent.Articles.create(article)
       .then(({ article }: { article:any }) => {
         this.articlesRegistry.set(article.slug, article);
@@ -111,7 +130,7 @@ export class ArticleStore {
       })
   }
 
-  @action updateArticle(data: any) {
+  updateArticle(data: any) {
     return agent.Articles.update(data)
       .then(({ article }:{ article: any }) => {
         this.articlesRegistry.set(article.slug, article);
@@ -119,7 +138,7 @@ export class ArticleStore {
       })
   }
 
-  @action deleteArticle(slug: string) {
+  deleteArticle(slug: string) {
     this.articlesRegistry.delete(slug);
     return agent.Articles.del(slug)
       .catch(action((err: ResponseError) => { this.loadArticles(); throw err; }));

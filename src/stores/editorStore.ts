@@ -1,26 +1,46 @@
-import { observable, action } from 'mobx';
+import { observable, action, makeObservable } from 'mobx';
 import { ResponseError } from 'superagent';
 import articleStore from './articleStore';
 
 export class EditorStore {
+  inProgress = false;
+  errors = undefined;
+  articleSlug: string = '';
 
-  @observable inProgress = false;
-  @observable errors = undefined;
-  @observable articleSlug: string = '';
+  title = '';
+  description = '';
+  body = '';
+  tagList: string[] = [];
 
-  @observable title = '';
-  @observable description = '';
-  @observable body = '';
-  @observable tagList: string[] = [];
+  constructor() {
+    makeObservable(this, {
+      inProgress: observable,
+      errors: observable,
+      articleSlug: observable,
+      title: observable,
+      description: observable,
+      body: observable,
+      tagList: observable,
+      setArticleSlug: action,
+      loadInitialData: action,
+      reset: action,
+      setTitle: action,
+      setDescription: action,
+      setBody: action,
+      addTag: action,
+      removeTag: action,
+      submit: action
+    });
+  }
 
-  @action setArticleSlug(articleSlug: string) {
+  setArticleSlug(articleSlug: string) {
     if (this.articleSlug !== articleSlug) {
       this.reset();
       this.articleSlug = articleSlug;
     }
   }
 
-  @action loadInitialData() {
+  loadInitialData() {
     if (!this.articleSlug) return Promise.resolve();
     this.inProgress = true;
     return articleStore.loadArticle(this.articleSlug, { acceptCached: true })
@@ -34,35 +54,35 @@ export class EditorStore {
       .finally(action(() => { this.inProgress = false; }));
   }
 
-  @action reset() {
+  reset() {
     this.title = '';
     this.description = '';
     this.body = '';
     this.tagList = [];
   }
 
-  @action setTitle(title: string) {
+  setTitle(title: string) {
     this.title = title;
   }
 
-  @action setDescription(description: string) {
+  setDescription(description: string) {
     this.description = description;
   }
 
-  @action setBody(body: string) {
+  setBody(body: string) {
     this.body = body;
   }
 
-  @action addTag(tag: string) {
+  addTag(tag: string) {
     if (this.tagList.includes(tag)) return;
     this.tagList.push(tag);
   }
 
-  @action removeTag(tag: string) {
+  removeTag(tag: string) {
     this.tagList = this.tagList.filter(t => t !== tag);
   }
 
-  @action submit() {
+  submit() {
     this.inProgress = true;
     this.errors = undefined;
     const article = {

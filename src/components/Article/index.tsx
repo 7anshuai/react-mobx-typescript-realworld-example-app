@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useObserver } from "mobx-react-lite";
+import { Observer } from "mobx-react-lite";
 import marked from "marked";
 
 import { useStore } from '../../store';
@@ -30,7 +30,7 @@ const Article: React.FC = () => {
     commentStore.deleteComment(id);
   };
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const { currentUser } = userStore;
     const { comments, commentErrors } = commentStore;
     const article = articleStore.getArticle(slug || '');
@@ -86,7 +86,7 @@ const Article: React.FC = () => {
         </div>
       </div>
     );
-  });
+  }}</Observer>;
 };
 
 export default Article;

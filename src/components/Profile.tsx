@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo} from "react";
 import { NavLink, Link, useLocation, useParams } from "react-router-dom";
-import { useObserver } from "mobx-react-lite";
+import { Observer } from "mobx-react-lite";
 import { useStore } from '../store';
 import RedError from "./RedError";
 import LoadingSpinner from "./LoadingSpinner";
@@ -97,7 +97,7 @@ const Profile: React.FC = () => {
     articleStore.loadArticles();
   }, [ articleStore, profileStore, predicate, location.pathname, params.username ]);
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const { profile, isLoadingProfile } = profileStore;
     const { currentUser } = userStore;
 
@@ -145,7 +145,7 @@ const Profile: React.FC = () => {
         </div>
       </div>
     );
-  });
+  }}</Observer>;
 }
 
 export default Profile;

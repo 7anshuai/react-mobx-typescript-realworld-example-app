@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useObserver } from 'mobx-react-lite';
+import { Observer } from 'mobx-react-lite';
 import { useStore } from '../store'
 
 const LoggedOutView = (props: any) => {
@@ -74,7 +74,7 @@ const LoggedInView = (props: any) => {
 
 const Header: React.FC = () => {
   const { commonStore, userStore } = useStore()
-  return useObserver(() => (
+  return <Observer>{() => (
     <nav className="navbar navbar-light">
       <div className="container">
 
@@ -87,7 +87,7 @@ const Header: React.FC = () => {
         <LoggedInView currentUser={userStore.currentUser} />
       </div>
     </nav>
-  ));
+  )}</Observer>
 }
 
 export default Header;

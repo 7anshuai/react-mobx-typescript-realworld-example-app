@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useObserver } from 'mobx-react-lite';
+import { Observer } from 'mobx-react-lite';
 import { useStore } from '../store';
 
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
@@ -19,7 +19,7 @@ const ArticlePreview: React.FC<any> = props => {
     }
   };
 
-  return useObserver(() => {
+  return <Observer>{() => {
     const { article } = props;
     const favoriteButtonClass = article.favorited ? FAVORITED_CLASS : NOT_FAVORITED_CLASS;
 
@@ -64,7 +64,7 @@ const ArticlePreview: React.FC<any> = props => {
         </Link>
       </div>
     );
-  });
+  }}</Observer>
 };
 
 

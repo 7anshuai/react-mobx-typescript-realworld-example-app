@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useObserver } from "mobx-react-lite";
+import { Observer } from "mobx-react-lite";
 import { useStore } from "../store";
 import ListErrors from "./ListErrors";
 
@@ -42,7 +42,7 @@ const SettingsForm: React.FC<any> = (props) => {
     }
   }, [ userStore.currentUser ]);
   
-  return useObserver(() => (
+  return <Observer>{() => (
     <form onSubmit={submitForm}>
       <fieldset>
         <fieldset className="form-group">
@@ -104,7 +104,7 @@ const SettingsForm: React.FC<any> = (props) => {
         </button>
       </fieldset>
     </form>
-  ));
+  )}</Observer>
 }
 
 const Settings: React.FC = () => {
@@ -113,7 +113,7 @@ const Settings: React.FC = () => {
   const handleClickLogout = () =>
     authStore.logout().then(() => history.replace("/"));
 
-  return useObserver(() => (
+  return <Observer>{() => (
     <div className="settings-page">
       <div className="container page">
         <div className="row">
@@ -139,7 +139,7 @@ const Settings: React.FC = () => {
         </div>
       </div>
     </div>
-  ));
+  )}</Observer>
 }
 
 export default Settings;

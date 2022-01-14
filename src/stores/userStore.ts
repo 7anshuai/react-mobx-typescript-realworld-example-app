@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, makeObservable } from 'mobx';
 import agent from '../agent';
 
 export type User = {
@@ -13,30 +13,40 @@ export type User = {
 }
 
 export class UserStore {
+  currentUser?: User;
+  loadingUser?: boolean;
+  updatingUser?: boolean;
+  updatingUserErrors: any;
 
-  @observable currentUser?: User;
-  @observable loadingUser?: boolean;
-  @observable updatingUser?: boolean;
-  @observable updatingUserErrors: any;
+  constructor() {
+    makeObservable(this, {
+      currentUser: observable,
+      loadingUser: observable,
+      updatingUser: observable,
+      updatingUserErrors: observable,
+      pullUser: action,
+      updateUser: action,
+      forgetUser: action
+    });
+  }
 
-  @action pullUser() {
+  pullUser() {
     this.loadingUser = true;
     return agent.Auth.current()
       .then(action(({ user }: { user: User }) => { this.currentUser = user; }))
       .finally(action(() => { this.loadingUser = false; }))
   }
 
-  @action updateUser(newUser: User) {
+  updateUser(newUser: User) {
     this.updatingUser = true;
     return agent.Auth.save(newUser)
       .then(action(({ user }: { user: User }) => { this.currentUser = user; }))
       .finally(action(() => { this.updatingUser = false; }))
   }
 
-  @action forgetUser() {
+  forgetUser() {
     this.currentUser = undefined;
   }
-
 }
 
 export default new UserStore();
