@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Observer } from "mobx-react-lite";
-import marked from "marked";
+import { marked } from "marked";
 
 import { useStore } from '../../store';
 import RedError from "../RedError";
@@ -37,7 +37,7 @@ const Article: React.FC = () => {
 
     if (!article) return <RedError message="Can't load article" />;
 
-    const markup = { __html: marked(article.body, { sanitize: true }) };
+    const markup = { __html: marked.parse(article.body, { sanitize: true }) };
     const canModify =
       currentUser && currentUser.username === article.author.username;
     return (
