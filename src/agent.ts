@@ -112,10 +112,12 @@ const Profile = {
     requests.del(`/profiles/${username}/follow`)
 };
 
-export default {
+const agent = {
   Articles,
   Auth,
   Comments,
   Profile,
   Tags,
 };
+
+export default agent;

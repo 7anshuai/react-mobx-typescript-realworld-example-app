@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Switch, Route, HashRouter as Router } from 'react-router-dom';
-import { useStore } from './store'
-import Header from 'components/Header';
-import Home from './components/Home';
-import Login from './components/Login';
-import Register from './components/Register';
-import PrivateRoute from './components/PrivateRoute';
-import Settings from './components/Settings';
-import Profile from './components/Profile';
-import Article from './components/Article';
-import Editor from './components/Editor';
+import { useStore } from '@/store'; // importing module using path alias
+import Header from 'components/Header'; // importing module using absolute paths
+import Home from '@components/Home';
+import Login from '@components/Login';
+import Register from '@components/Register';
+import PrivateRoute from '@components/PrivateRoute';
+import Settings from '@components/Settings';
+import Profile from '@components/Profile';
+import Article from '@components/Article';
+import Editor from '@components/Editor';
 
 const App: React.FC = () => {
   const { commonStore, userStore } = useStore()
