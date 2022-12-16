@@ -31,7 +31,7 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject",
+    "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
     "predeploy": "yarn build"
   },
